@@ -8,8 +8,8 @@ export const navLinks = [
 
 export const socialLinks = {
   github: 'https://github.com/dhruvintejani',
-  linkedin: '#',
-  email: 'mailto:dhruvintejani58242@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/dhruvin-tejani-3155a1368/',
+  email: 'mailto:dhruvintejani.work@gmail.com',
 };
 
 export const heroData = {
