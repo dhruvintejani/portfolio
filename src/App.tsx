@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import {
   ArrowDownRight, ArrowRight, ArrowUpRight, Check, CheckCircle2,
   Github, Globe2, Layers3, Linkedin, Mail, Menu, Monitor,
@@ -311,9 +312,7 @@ function About() {
   </section>;
 }
 
-type ContactStatus = 'idle' | 'loading' | 'success' | 'error';
-type ContactResponse = { ok?: boolean; code?: string };
-
+type ContactStatus = 'idle' | 'loading' | 'success' | 'error' | 'activation';
 function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<ContactStatus>('idle');
@@ -322,64 +321,83 @@ function Contact() {
 
   const update = (field: 'name' | 'email' | 'message', value: string) => {
     setForm(current => ({ ...current, [field]: value }));
-    if (status !== 'loading') {
-      setStatus('idle');
-      setFeedback('');
-    }
+    if (status !== 'loading') { setStatus('idle'); setFeedback(''); }
   };
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (status === 'loading' || honeypot.trim()) return;
+    if (status === 'loading') return;
+    if (honeypot.trim()) return;
 
     const name = form.name.trim();
     const email = form.email.trim();
     const message = form.message.trim();
-    if (name.length < 2 || name.length > 100 || message.length < 10 ||
-        message.length > 3000 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (name.length < 2 || message.length < 10 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setStatus('error');
-      setFeedback('Please check your name, email address and message, then try again.');
+      setFeedback('Please enter your name, a valid email address and a message of at least 10 characters.');
       return;
     }
 
     setStatus('loading');
     setFeedback('');
 
-    try {
-      // Same-origin JSON-only API. No form submission opens an email
-      // application or an external HTML response page.
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ name, email, message, website: honeypot }),
-        signal: AbortSignal.timeout(15000)
-      });
-      const type = response.headers.get('content-type')?.toLowerCase() || '';
-      if (!type.includes('application/json')) {
-        throw new Error('NON_JSON_RESPONSE');
-      }
-      const result: ContactResponse = await response.json();
+    const service = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const template = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    const emailJSReady = service && template && publicKey && ![service, template, publicKey].some(v => String(v).startsWith('YOUR_'));
 
-      if (!response.ok || result.ok !== true) {
-        if (response.status === 503 && result.code === 'EMAIL_NOT_CONFIGURED') {
-          setFeedback('The enquiry service is being set up. Your message has not been sent. Please use the email address below for now.');
-        } else if (response.status === 429) {
-          setFeedback('Too many attempts. Please wait a moment and try again.');
-        } else {
-          setFeedback('Your enquiry could not be sent right now. Please try again or use the email address below.');
+    try {
+      if (emailJSReady) {
+        await emailjs.send(service, template, {
+          name, from_name: name, from_email: email, reply_to: email, to_email: EMAIL,
+          message: 'Email: ' + email + '\n\n' + message,
+          time: new Date().toLocaleString()
+        }, publicKey);
+      } else {
+        // Static-site transport. The recipient must activate FormSubmit once
+        // before messages can be delivered; never treat an activation response
+        // as a successfully sent customer enquiry.
+        const response = await fetch('https://formsubmit.co/ajax/' + EMAIL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            name, email, message,
+            _subject: 'New portfolio enquiry from ' + name,
+            _honey: honeypot,
+            _captcha: 'false',
+            _template: 'table'
+          })
+        });
+        // The provider can respond with an HTML error page (or a blocked
+        // request) instead of JSON. Never display markup as an error message.
+        const contentType = response.headers.get('content-type')?.toLowerCase() ?? '';
+        if (!contentType.includes('application/json')) {
+          throw new Error('Unexpected non-JSON response from the contact service');
         }
-        setStatus('error');
-        return;
+        const payload: unknown = await response.json();
+        const result: { success?: unknown; message?: unknown } =
+          payload !== null && typeof payload === 'object'
+            ? payload as { success?: unknown; message?: unknown }
+            : {};
+        const accepted = result.success === true || result.success === 'true';
+        if (!response.ok || !accepted) {
+          // Check only the activation keywords; never render raw error text.
+          const details = typeof result.message === 'string' ? result.message : '';
+          if (/activat|verif|confirm/i.test(details)) {
+            setStatus('activation');
+            setFeedback('The contact form is awaiting one-time email verification by the website owner. Your message has not been delivered yet. Please try again after activation.');
+            return;
+          }
+          throw new Error('Contact service did not confirm submission');
+        }
       }
 
       setStatus('success');
-      setFeedback('Your enquiry has been sent. Thank you — I’ll be in touch.');
+      setFeedback('Your enquiry has been submitted. Thank you — I’ll be in touch.');
       setForm({ name: '', email: '', message: '' });
     } catch {
-      // Never render the upstream response body: HTML error pages are
-      // neither parsed as JSON nor displayed to visitors.
       setStatus('error');
-      setFeedback('Unable to send your enquiry at the moment. Your details are saved in the form. Please try again or email me below.');
+      setFeedback('Your message was not sent. Please try again in a moment, or email me directly using the address below. Your form details have been kept.');
     }
   }
 
@@ -396,24 +414,19 @@ function Contact() {
         <div id="contact-form" className="contact-form-anchor">
           <div className="form-heading"><span>START A CONVERSATION</span><Send size={21}/></div>
           <form onSubmit={submit}>
-            <input type="text" name="website" value={honeypot} onChange={e => setHoneypot(e.target.value)}
-              className="contact-honeypot" tabIndex={-1} autoComplete="off" aria-hidden="true"/>
+            <input type="text" name="_honey" value={honeypot} onChange={e => setHoneypot(e.target.value)}
+              className="contact-honeypot" tabIndex={-1} autoComplete="off" aria-hidden="true" />
             <div className="form-row">
               <label>Your name<input type="text" name="name" required minLength={2} maxLength={100} placeholder="How should I address you?" value={form.name} onChange={e => update('name', e.target.value)} autoComplete="name"/></label>
               <label>Your email<input type="email" name="email" required maxLength={160} placeholder="you@company.com" value={form.email} onChange={e => update('email', e.target.value)} autoComplete="email"/></label>
             </div>
-            <label>Tell me about your project<textarea name="message" required minLength={10} maxLength={3000} rows={4}
-              placeholder="A few details about what you need, your goals, or the problem you're trying to solve..."
-              value={form.message} onChange={e => update('message', e.target.value)}/></label>
-            <div className="form-bottom"><span>Send your enquiry directly from this page.</span>
-              <button type="submit" className="button button-primary" disabled={status === 'loading'}>
-                {status === 'loading' ? <>Sending <LoaderCircle size={17} className="loading-icon"/></> : <>Send enquiry <ArrowUpRight size={18}/></>}
-              </button></div>
-            {status !== 'idle' && status !== 'loading' && <div role={status === 'error' ? 'alert' : 'status'}
+            <label>Tell me about your project<textarea name="message" required minLength={10} maxLength={3000} rows={4} placeholder="A few details about what you need, your goals, or the problem you're trying to solve..." value={form.message} onChange={e => update('message', e.target.value)}/></label>
+            <div className="form-bottom"><span>Send your enquiry directly from this page.</span><button type="submit" className="button button-primary" disabled={status === 'loading'}>{status === 'loading' ? <>Sending <LoaderCircle size={17} className="loading-icon"/></> : <>Send enquiry <ArrowUpRight size={18}/></>}</button></div>
+            {status !== 'idle' && status !== 'loading' && <p role={status === 'error' || status === 'activation' ? 'alert' : 'status'}
               className={'form-status ' + (status === 'success' ? 'status-good' : 'status-error')}>
-              {status === 'success' ? <CheckCircle2 size={17}/> : <AlertCircle size={17}/>}
-              <div><p>{feedback}</p>{status === 'error' && <a className="contact-error-email" href={'mailto:' + EMAIL}>{EMAIL}</a>}</div>
-            </div>}
+              {status === 'success' ? <CheckCircle2 size={17}/> : <AlertCircle size={17}/>} {feedback}
+              {status === 'error' && <a className="contact-error-email" href={'mailto:' + EMAIL}>{EMAIL}</a>}
+            </p>}
           </form>
         </div>
       </Reveal>
