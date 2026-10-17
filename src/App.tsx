@@ -84,7 +84,7 @@ const navItems = [
   { label: 'Work', href: '#work' },
   { label: 'Expertise', href: '#expertise' },
   { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' }
+  { label: 'Contact', href: '#contact-form' }
 ];
 
 function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -126,7 +126,7 @@ function Navigation() {
           {navItems.map(item => <a href={item.href} key={item.href}>{item.label}</a>)}
         </nav>
         <div className="nav-actions">
-          <a className="nav-contact" href={'mailto:' + EMAIL + '?subject=Project%20enquiry'}>Let's talk <ArrowUpRight size={15}/></a>
+          <a className="nav-contact" href="#contact-form">Let's talk <ArrowUpRight size={15}/></a>
           <button type="button" className="mobile-toggle" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={() => setOpen(!open)}>
             {open ? <X size={22}/> : <Menu size={22}/>}
           </button>
@@ -183,7 +183,7 @@ function Hero() {
         <Reveal delay={0.26}><p className="hero-description">I'm Dhruvin Tejani, a developer with <strong>5+ years of experience</strong> building thoughtful websites, custom web applications and digital experiences for real businesses.</p></Reveal>
         <Reveal delay={0.35}><div className="hero-ctas">
           <a className="button button-primary" href="#work">Explore selected work <ArrowUpRight size={18}/></a>
-          <a className="button button-text" href="#contact">Let's work together <ArrowRight size={18}/></a>
+          <a className="button button-text" href="#contact-form">Let's work together <ArrowRight size={18}/></a>
         </div></Reveal>
         <Reveal delay={0.44}><div className="hero-proof">
           <div><strong>5<span>+</span></strong><span>Years building<br/>for the web</span></div>
@@ -194,12 +194,23 @@ function Hero() {
       <Reveal className="hero-art" delay={0.22}>
         <div className="hero-art-label"><span className="label-cross">✳</span> WEBSITES &amp; CUSTOM SOFTWARE <span>↗</span></div>
         <div className="hero-feature-window hero-showcase-frame">
-          <picture>
-            <source srcSet="/hero-showcase.avif" type="image/avif"/>
-            <img src="/projects/averon-cover.svg"
-              alt="Conceptual showcase of a premium logistics website and an inventory-management application displayed on two laptops"
-              width={640} height={400} decoding="async" fetchPriority="high"/>
-          </picture>
+          <div className="hero-scene">
+            <img className="hero-scene-image" src="/hero-showcase.avif" alt="" aria-hidden="true" decoding="async" />
+            <div className="hero-scene-wash" />
+            <div className="hero-devices">
+              <div className="hero-device hero-device-web">
+                <div className="hero-device-top"><span className="hero-device-dots"><i/><i/><i/></span><span>averonfs.com</span><ArrowUpRight size={13}/></div>
+                <img src="/projects/averon-cover.svg" alt="Illustrative logistics website composition" width={1600} height={1000} decoding="async" fetchPriority="high"/>
+                <div className="hero-device-foot"><span>CORPORATE WEBSITE</span><span>01 / 02</span></div>
+              </div>
+              <div className="hero-device hero-device-app">
+                <div className="hero-device-top"><span className="hero-device-dots"><i/><i/><i/></span><span>Business software</span><ArrowUpRight size={13}/></div>
+                <img src="/projects/sreya-cover.svg" alt="Illustrative inventory and production software dashboard" width={1600} height={1000} decoding="async" fetchPriority="high"/>
+                <div className="hero-device-foot"><span>OPERATIONS PLATFORM</span><span>02 / 02</span></div>
+              </div>
+            </div>
+            <div className="hero-scene-caption">CRAFTED FOR REAL BUSINESSES <span>✳</span></div>
+          </div>
         </div>
         <div className="hero-art-footer"><span>VISUAL CONCEPT / ACTUAL PROJECTS BELOW</span><a href="#work">EXPLORE PROJECTS <ArrowUpRight size={14}/></a></div>
       </Reveal>
@@ -248,7 +259,7 @@ function Work() {
           </article>
         </Reveal>)}
       </div>
-      <Reveal className="work-bottom"><p>Each project is a combination of a specific problem, considered design and clean execution.</p><a href={'mailto:' + EMAIL + '?subject=Discuss%20a%20project'}>Have something similar in mind? <ArrowUpRight size={17}/></a></Reveal>
+      <Reveal className="work-bottom"><p>Each project is a combination of a specific problem, considered design and clean execution.</p><a href="#contact-form">Have something similar in mind? <ArrowUpRight size={17}/></a></Reveal>
     </div>
   </section>;
 }
@@ -285,7 +296,7 @@ function About() {
         <SectionHeader eyebrow="03 / THE PERSON BEHIND THE WORK" title={<>A developer who<br/><em>thinks beyond code.</em></>}/>
         <Reveal><p className="about-lead">Hi, I'm Dhruvin — a developer and the founder of PixelAura Technologies. I turn ideas, business challenges and rough requirements into well-crafted digital experiences.</p></Reveal>
         <Reveal delay={.1}><p className="about-description">With over five years of personal development experience, I care just as much about how a product feels as how it works. I work directly on the details: structure, interfaces, responsiveness, functionality and a smooth path from idea to launch.</p></Reveal>
-        <Reveal delay={.16}><a className="inline-link" href={'mailto:' + EMAIL + '?subject=Let%27s%20work%20together'}>Tell me what you're building <ArrowUpRight size={18}/></a></Reveal>
+        <Reveal delay={.16}><a className="inline-link" href="#contact-form">Tell me what you're building <ArrowUpRight size={18}/></a></Reveal>
       </div>
       <Reveal className="about-aside" delay={.18}>
         <div className="about-monogram">d<span>.</span></div>
@@ -301,59 +312,111 @@ function About() {
   </section>;
 }
 
-type ContactStatus = 'idle' | 'loading' | 'success' | 'error' | 'fallback';
+type ContactStatus = 'idle' | 'loading' | 'success' | 'error' | 'activation';
 function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<ContactStatus>('idle');
+  const [honeypot, setHoneypot] = useState('');
+  const [feedback, setFeedback] = useState('');
+
+  const update = (field: 'name' | 'email' | 'message', value: string) => {
+    setForm(current => ({ ...current, [field]: value }));
+    if (status !== 'loading') { setStatus('idle'); setFeedback(''); }
+  };
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (status === 'loading') return;
+    if (honeypot.trim()) return;
+
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const message = form.message.trim();
+    if (name.length < 2 || message.length < 10 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setStatus('error');
+      setFeedback('Please enter your name, a valid email address and a message of at least 10 characters.');
+      return;
+    }
+
+    setStatus('loading');
+    setFeedback('');
+
     const service = import.meta.env.VITE_EMAILJS_SERVICE_ID;
     const template = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-    if (!service || !template || !publicKey || service.startsWith('YOUR_')) {
-      const subject = encodeURIComponent('Portfolio enquiry from ' + form.name);
-      const body = encodeURIComponent('Name: ' + form.name + '\nEmail: ' + form.email + '\n\n' + form.message);
-      window.location.href = 'mailto:' + EMAIL + '?subject=' + subject + '&body=' + body;
-      setStatus('fallback');
-      return;
-    }
-    setStatus('loading');
+    const emailJSReady = service && template && publicKey && ![service, template, publicKey].some(v => String(v).startsWith('YOUR_'));
+
     try {
-      await emailjs.send(service, template, {
-        name: form.name, from_name: form.name, from_email: form.email,
-        reply_to: form.email, to_email: EMAIL,
-        message: 'Email: ' + form.email + '\n\n' + form.message,
-        time: new Date().toLocaleString()
-      }, publicKey);
+      if (emailJSReady) {
+        await emailjs.send(service, template, {
+          name, from_name: name, from_email: email, reply_to: email, to_email: EMAIL,
+          message: 'Email: ' + email + '\n\n' + message,
+          time: new Date().toLocaleString()
+        }, publicKey);
+      } else {
+        // Static-site transport. The recipient must activate FormSubmit once
+        // before messages can be delivered; never treat an activation response
+        // as a successfully sent customer enquiry.
+        const response = await fetch('https://formsubmit.co/ajax/' + EMAIL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            name, email, message,
+            _subject: 'New portfolio enquiry from ' + name,
+            _honey: honeypot,
+            _captcha: 'false',
+            _template: 'table'
+          })
+        });
+        const result: { success?: boolean | string; message?: string } = await response.json();
+        const accepted = result.success === true || result.success === 'true';
+        if (!response.ok || !accepted) {
+          const details = String(result.message || '');
+          if (/activat|verify|confirm/i.test(details)) {
+            setStatus('activation');
+            setFeedback('The contact form is awaiting one-time email verification by the website owner. Your message has not been delivered yet. Please try again after activation.');
+            return;
+          }
+          throw new Error('FormSubmit did not confirm delivery');
+        }
+      }
+
       setStatus('success');
+      setFeedback('Your enquiry has been submitted. Thank you — I’ll be in touch.');
       setForm({ name: '', email: '', message: '' });
     } catch {
       setStatus('error');
+      setFeedback('Sorry, we could not send your enquiry right now. Your details are still here — please try again in a moment.');
     }
   }
+
   return <section className="section contact-section" id="contact">
     <div className="container">
       <div className="contact-top"><Reveal>
         <div className="eyebrow"><span className="eyebrow-line"/>04 / LET'S MAKE SOMETHING GREAT</div>
         <h2>Have an idea?<br/><em>Let's make it real.</em></h2>
         <p>Need a website that earns trust or software that fixes a real problem? Tell me a little about it. I'll help you think through the next step.</p>
-        <a href={'mailto:' + EMAIL} className="contact-email">{EMAIL} <ArrowUpRight size={21}/></a>
+        <a href="#contact-form" className="contact-email">Tell me about your project <ArrowUpRight size={21}/></a>
         <div className="contact-availability"><span className="availability-dot"/> OPEN TO RELEVANT PROJECT OPPORTUNITIES</div>
       </Reveal></div>
       <Reveal className="contact-form-wrap" delay={.1}>
-        <div className="form-heading"><span>START A CONVERSATION</span><Send size={21}/></div>
-        <form onSubmit={submit}>
-          <div className="form-row">
-            <label>Your name<input type="text" name="name" required minLength={2} maxLength={100} placeholder="How should I address you?" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })}/></label>
-            <label>Your email<input type="email" name="email" required maxLength={160} placeholder="you@company.com" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })}/></label>
-          </div>
-          <label>Tell me about your project<textarea name="message" required minLength={10} maxLength={3000} rows={4} placeholder="A few details about what you need, your goals, or the problem you're trying to solve..." value={form.message} onChange={e => setForm({ ...form, message: e.target.value })}/></label>
-          <div className="form-bottom"><span>No lengthy forms. Just a good conversation.</span><button type="submit" className="button button-primary" disabled={status === 'loading'}>{status === 'loading' ? <>Sending <LoaderCircle size={17} className="loading-icon"/></> : <>Send enquiry <ArrowUpRight size={18}/></>}</button></div>
-          {status === 'success' && <p role="status" className="form-status status-good"><CheckCircle2 size={17}/> Message sent. Thanks — I'll get back to you.</p>}
-          {status === 'error' && <p role="alert" className="form-status status-error"><AlertCircle size={17}/> Sending failed. Please email me directly at <a href={'mailto:' + EMAIL}>{EMAIL}</a>.</p>}
-          {status === 'fallback' && <p role="status" className="form-status">Your email application should open with the message filled in. If it doesn't, use the email address on the left.</p>}
-        </form>
+        <div id="contact-form" className="contact-form-anchor">
+          <div className="form-heading"><span>START A CONVERSATION</span><Send size={21}/></div>
+          <form onSubmit={submit}>
+            <input type="text" name="_honey" value={honeypot} onChange={e => setHoneypot(e.target.value)}
+              className="contact-honeypot" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+            <div className="form-row">
+              <label>Your name<input type="text" name="name" required minLength={2} maxLength={100} placeholder="How should I address you?" value={form.name} onChange={e => update('name', e.target.value)} autoComplete="name"/></label>
+              <label>Your email<input type="email" name="email" required maxLength={160} placeholder="you@company.com" value={form.email} onChange={e => update('email', e.target.value)} autoComplete="email"/></label>
+            </div>
+            <label>Tell me about your project<textarea name="message" required minLength={10} maxLength={3000} rows={4} placeholder="A few details about what you need, your goals, or the problem you're trying to solve..." value={form.message} onChange={e => update('message', e.target.value)}/></label>
+            <div className="form-bottom"><span>Send your enquiry directly from this page.</span><button type="submit" className="button button-primary" disabled={status === 'loading'}>{status === 'loading' ? <>Sending <LoaderCircle size={17} className="loading-icon"/></> : <>Send enquiry <ArrowUpRight size={18}/></>}</button></div>
+            {status !== 'idle' && status !== 'loading' && <p role={status === 'error' || status === 'activation' ? 'alert' : 'status'}
+              className={'form-status ' + (status === 'success' ? 'status-good' : 'status-error')}>
+              {status === 'success' ? <CheckCircle2 size={17}/> : <AlertCircle size={17}/>} {feedback}
+            </p>}
+          </form>
+        </div>
       </Reveal>
     </div>
   </section>;
