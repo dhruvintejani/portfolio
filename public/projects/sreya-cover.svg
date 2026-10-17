@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img"><defs>
+<linearGradient id="navy" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#07182e"/><stop offset="1" stop-color="#153b58"/></linearGradient>
+<linearGradient id="warm" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#c49b50"/><stop offset="1" stop-color="#e7c97b"/></linearGradient>
+<linearGradient id="sreya" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f9f7f1"/><stop offset="1" stop-color="#eaeedd"/></linearGradient>
+<linearGradient id="darkFade" x1="0" x2="1"><stop stop-color="#06152a"/><stop offset="1" stop-color="#06152a" stop-opacity="0"/></linearGradient>
+<filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="25" stdDeviation="34" flood-color="#030919" flood-opacity=".22"/></filter>
+<pattern id="grain" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 2h1M6 7h1" stroke="#ffffff" stroke-opacity=".14" stroke-width=".5"/></pattern>
+</defs>
+<rect width="1600" height="1000" fill="#dfe8d7"/>
+<circle cx="1395" cy="65" r="430" fill="#b0c4a5" opacity=".39"/>
+<circle cx="220" cy="1010" r="400" fill="#e6d9bd" opacity=".5"/>
+<g filter="url(#softShadow)"><rect x="81" y="72" width="1438" height="852" rx="26" fill="#fbfaf5"/></g>
+<path d="M81 98q0-26 26-26h257v852H107q-26 0-26-26z" fill="#273f30"/>
+<circle cx="153" cy="130" r="21" fill="#e6cd98"/><text x="146" y="139" fill="#314b39" font-family="Georgia" font-size="23" font-weight="700">S</text>
+<text x="189" y="138" font-size="24" font-family="Georgia" font-weight="700" fill="#f7f2e7">SREYA</text>
+<text x="188" y="158" font-size="11" font-family="Arial" letter-spacing="2.3" fill="#b9ccb9">DIGITAL WEAR</text>
+<g font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="600">
+ <rect x="105" y="232" width="237" height="59" rx="10" fill="#3d5e47"/>
+ <g fill="#e9ede0"><text x="144" y="268">▦  Dashboard</text><text x="145" y="351">▤  Products</text><text x="145" y="418">◈  Cloth Inventory</text><text x="145" y="485">▥  Production</text><text x="145" y="552">◫  Reports</text></g>
+ <path d="M114 830h218" stroke="#a1b5a0" stroke-opacity=".4"/><text x="144" y="867" fill="#b2c8b1" font-size="16">ADMIN WORKSPACE</text>
+</g>
+<g font-family="Arial,Helvetica,sans-serif">
+ <text x="416" y="142" font-size="18" fill="#8b9b87" font-weight="700" letter-spacing="2.5">OPERATIONS / OVERVIEW</text>
+ <text x="415" y="216" font-family="Georgia,serif" fill="#28412e" font-size="54">Inventory overview</text>
+ <text x="416" y="258" font-size="19" fill="#859486">An organized view of products, material and production.</text>
+ <rect x="1237" y="124" width="215" height="62" rx="12" fill="#496d4f"/>
+ <text x="1264" y="164" fill="#ffffff" font-size="18" font-weight="700">＋  Add product</text>
+</g>
+<g font-family="Arial,Helvetica,sans-serif">
+ <rect x="416" y="309" width="311" height="162" rx="18" fill="#ffffff" stroke="#e0e8d9"/>
+ <rect x="749" y="309" width="310" height="162" rx="18" fill="#ffffff" stroke="#e0e8d9"/>
+ <rect x="1081" y="309" width="367" height="162" rx="18" fill="#ffffff" stroke="#e0e8d9"/>
+ <text x="448" y="360" font-size="18" fill="#87988a">Total products</text><text x="448" y="419" font-size="58" font-weight="700" fill="#274d32">248</text><text x="448" y="444" font-size="13" fill="#a2aaa0">ILLUSTRATIVE DATA</text>
+ <text x="781" y="360" font-size="18" fill="#87988a">Inventory units</text><text x="781" y="419" font-size="58" font-weight="700" fill="#274d32">1,482</text><text x="781" y="444" font-size="13" fill="#a2aaa0">ILLUSTRATIVE DATA</text>
+ <text x="1113" y="360" font-size="18" fill="#87988a">Active production</text><text x="1113" y="419" font-size="58" font-weight="700" fill="#274d32">36</text><text x="1113" y="444" font-size="13" fill="#a2aaa0">ILLUSTRATIVE DATA</text>
+</g>
+<rect x="416" y="496" width="691" height="362" rx="17" fill="#fff" stroke="#e0e8d9"/>
+<rect x="1130" y="496" width="318" height="362" rx="17" fill="#fff" stroke="#e0e8d9"/>
+<g font-family="Arial,Helvetica,sans-serif">
+ <text x="449" y="544" font-size="24" font-weight="700" fill="#314a35">Production activity</text>
+ <text x="451" y="575" font-size="14" fill="#9baa99">Illustrative workflow trend</text>
+ <text x="1161" y="545" font-size="23" font-weight="700" fill="#314a35">Stock health</text>
+ <text x="1161" y="574" font-size="14" fill="#9baa99">Example overview</text>
+</g>
+<path d="M450 785h624M450 720h624M450 655h624M450 590h624" stroke="#edf0e8" stroke-width="2"/>
+<path d="M472 763Q540 689 605 721T745 655T879 666T1044 579" fill="none" stroke="#6a936f" stroke-width="7" stroke-linecap="round"/>
+<path d="M472 763Q540 689 605 721T745 655T879 666T1044 579v217H472z" fill="#90b994" fill-opacity=".13"/>
+<circle cx="1044" cy="579" r="9" fill="#d4ad65" stroke="#fff" stroke-width="5"/>
+<circle cx="1289" cy="693" r="87" fill="none" stroke="#e0e8db" stroke-width="28"/>
+<circle cx="1289" cy="693" r="87" fill="none" stroke="#5b8f62" stroke-width="28" stroke-dasharray="410 546" stroke-linecap="round" transform="rotate(-90 1289 693)"/>
+<text x="1289" y="692" fill="#2f5138" font-size="35" font-weight="700" font-family="Arial" text-anchor="middle">75%</text>
+<text x="1289" y="721" fill="#829986" font-size="14" font-family="Arial" text-anchor="middle">in stock</text>
+<text x="416" y="906" fill="#6d866e" font-size="13" font-family="Arial" letter-spacing="2.5">A CONCEPTUAL UI COMPOSITION — NOT CLIENT DATA</text>
+</svg>

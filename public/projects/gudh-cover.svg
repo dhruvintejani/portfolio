@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img"><defs>
+<linearGradient id="navy" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#07182e"/><stop offset="1" stop-color="#153b58"/></linearGradient>
+<linearGradient id="warm" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#c49b50"/><stop offset="1" stop-color="#e7c97b"/></linearGradient>
+<linearGradient id="sreya" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f9f7f1"/><stop offset="1" stop-color="#eaeedd"/></linearGradient>
+<linearGradient id="darkFade" x1="0" x2="1"><stop stop-color="#06152a"/><stop offset="1" stop-color="#06152a" stop-opacity="0"/></linearGradient>
+<filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="25" stdDeviation="34" flood-color="#030919" flood-opacity=".22"/></filter>
+<pattern id="grain" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 2h1M6 7h1" stroke="#ffffff" stroke-opacity=".14" stroke-width=".5"/></pattern>
+</defs>
+<rect width="1600" height="1000" fill="#eadcc6"/>
+<rect x="28" y="27" width="1544" height="946" fill="#f7f1e5" stroke="#9b713b" stroke-width="2"/>
+<rect x="55" y="54" width="1490" height="892" fill="none" stroke="#d0b98c" stroke-width="1"/>
+<circle cx="1150" cy="512" r="385" fill="#ece1c9"/>
+<circle cx="1150" cy="512" r="346" fill="none" stroke="#b89354" stroke-opacity=".45" stroke-width="2"/>
+<circle cx="1150" cy="512" r="289" fill="none" stroke="#b89354" stroke-opacity=".5" stroke-width="2"/>
+<circle cx="1150" cy="512" r="225" fill="none" stroke="#b89354" stroke-opacity=".4" stroke-width="2"/>
+<g fill="none" stroke="#b18445" stroke-opacity=".48" stroke-width="3" transform="translate(1150 512)">
+<ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(0)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(15)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(30)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(45)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(60)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(75)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(90)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(105)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(120)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(135)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(150)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(165)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(180)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(195)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(210)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(225)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(240)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(255)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(270)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(285)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(300)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(315)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(330)"/><ellipse cx="0" cy="-154" rx="54" ry="172" transform="rotate(345)"/>
+<path d="M0-300l27 53-27 43-27-43z" transform="rotate(0)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(22.5)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(45)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(67.5)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(90)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(112.5)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(135)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(157.5)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(180)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(202.5)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(225)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(247.5)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(270)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(292.5)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(315)"/><path d="M0-300l27 53-27 43-27-43z" transform="rotate(337.5)"/>
+<circle r="60"/><circle r="30" fill="#b18445" fill-opacity=".15"/>
+</g>
+<path d="M113 169H1489" stroke="#b49a71"/>
+<path d="M113 823H1489" stroke="#b49a71"/>
+<g font-family="Georgia,serif">
+ <text x="121" y="128" font-size="35" fill="#6f2f33" font-weight="700">गूढ़ विद्यानुशासन केंद्र</text>
+ <text x="1248" y="126" font-family="Arial" font-size="15" fill="#846243" letter-spacing="3">KNOWLEDGE · TRADITION</text>
+ <text x="119" y="271" font-family="Arial" font-size="19" letter-spacing="5" fill="#a87938">TRADITIONAL WISDOM  /  MODERN EXPERIENCE</text>
+ <text x="117" y="414" font-size="93" fill="#702f34">प्राचीन ज्ञान की</text>
+ <text x="117" y="533" font-size="93" fill="#702f34">नई पहचान</text>
+ <text x="121" y="605" font-family="Arial" font-size="24" fill="#876e59">A thoughtful digital home for learning,</text>
+ <text x="121" y="640" font-family="Arial" font-size="24" fill="#876e59">guidance and timeless knowledge.</text>
+ <rect x="121" y="698" width="270" height="75" rx="2" fill="#712f35"/>
+ <text x="156" y="744" font-family="Arial" font-size="19" letter-spacing="2" fill="#fbf5e9">EXPLORE THE SITE ↗</text>
+ <text x="119" y="878" font-family="Arial" font-size="17" fill="#966c40" letter-spacing="3">HINDI FIRST  ·  CULTURALLY ROOTED  ·  RESPONSIVE</text>
+</g>
+<g fill="#a9874f" opacity=".45"><circle cx="1484" cy="205" r="4"/><circle cx="1456" cy="205" r="4"/><circle cx="1430" cy="205" r="4"/></g>
+<rect width="1600" height="1000" fill="url(#grain)" opacity=".17"/>
+</svg>

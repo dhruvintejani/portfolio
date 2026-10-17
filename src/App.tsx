@@ -4,7 +4,7 @@ import emailjs from '@emailjs/browser';
 import {
   ArrowDownRight, ArrowRight, ArrowUpRight, Check, CheckCircle2, Code2,
   Github, Globe2, Layers3, Linkedin, Mail, Menu, Monitor,
-  Send, ShieldCheck, Sparkles, X, Workflow, AlertCircle, LoaderCircle
+  Send, Sparkles, X, Workflow, AlertCircle, LoaderCircle
 } from 'lucide-react';
 
 type Project = {
@@ -44,11 +44,11 @@ const projects: Project[] = [
     id: 'sreya',
     number: '02',
     name: 'Sreya Digital Wear',
-    category: 'Fashion / E-commerce',
-    eyebrow: 'CLIENT WEBSITE · LIVE',
-    headline: 'An engaging shopping experience with a clean visual story.',
-    description: 'An e-commerce experience focused on presenting apparel beautifully, simplifying product discovery and maintaining a seamless responsive shopping interface.',
-    services: ['E-commerce UI', 'Product Experience', 'Responsive Development'],
+    category: 'Fashion / Business Software',
+    eyebrow: 'CLIENT SOFTWARE · PRIVATE APP',
+    headline: 'A clearer way to manage inventory and production.',
+    description: 'A private application built for managing fashion products, cloth inventory, stock visibility and production workflows. Shown with an illustrative dashboard using demonstration data.',
+    services: ['Custom Business Software', 'Inventory', 'Production'],
     url: 'https://sreya-digital-wear.vercel.app/',
     domain: 'sreya-digital-wear.vercel.app',
     client: true
@@ -144,47 +144,30 @@ function Navigation() {
   </>;
 }
 
-function Mockup({ id }: { id: string }) {
-  if (id === 'averon') return <div className="mockup mockup-averon">
-    <div className="mock-nav"><strong>AVERON<span> FREIGHT</span></strong><span>OUR SERVICES　ABOUT　CONTACT</span></div>
-    <div className="mock-main"><span>GLOBAL FREIGHT FORWARDING</span><h3>Connecting your cargo<br/>to global markets.</h3><i>EXPLORE OUR SERVICES　↗</i></div>
-    <div className="mock-footer"><span>OCEAN FREIGHT</span><span>AIR FREIGHT</span><span>CUSTOMS</span></div>
-  </div>;
-  if (id === 'sreya') return <div className="mockup mockup-sreya">
-    <div className="mock-nav"><strong>SREYA <span>DIGITAL WEAR</span></strong><span>SHOP　 COLLECTIONS　 CART</span></div>
-    <div className="mock-sreya-body"><div className="fashion-art"><div className="fashion-orb"/><span>NEW SEASON</span></div><div className="fashion-copy"><small>THE COLLECTION / 2026</small><h3>Wear your<br/><em>own story.</em></h3><i>DISCOVER THE COLLECTION ↗</i></div></div>
-  </div>;
-  if (id === 'gudh') return <div className="mockup mockup-gudh">
-    <div className="mock-nav"><strong>गूढ़ विद्यानुशासन केंद्र</strong><span>परिचय　 सेवाएँ　 संपर्क</span></div>
-    <div className="mock-gudh-body"><span className="mandala">✺</span><small>ज्ञान • साधना • मार्गदर्शन</small><h3>प्राचीन ज्ञान,<br/>आधुनिक जीवन</h3><i>अधिक जानें　↗</i></div>
-  </div>;
-  return <div className="mockup mockup-workflow">
-    <div className="dash-rail"><div className="dash-logo">W</div><span>▦</span><span>▤</span><span>◫</span><span>◷</span></div>
-    <div className="dash-content"><div className="dash-top">Operations Overview <small>● LIVE WORKSPACE</small></div>
-      <div className="dash-stats"><span><small>Active orders</small><b>128</b></span><span><small>In production</small><b>42</b></span><span><small>Ready to ship</small><b>18</b></span></div>
-      <div className="dash-chart"><div className="dash-chart-head"><b>Production activity</b><small>Last 7 days</small></div><div className="dash-bars">{[37, 62, 49, 75, 59, 88, 70, 96, 65].map((n, i) => <i key={i} style={{ height: n + '%' }}/>)}</div></div>
-    </div>
-  </div>;
-}
+const coverPaths: Record<string, string> = {
+  averon: '/projects/averon-cover.svg',
+  sreya: '/projects/sreya-cover.svg',
+  gudh: '/projects/gudh-cover.svg',
+  workflow: '/projects/manufacturing-cover.svg',
+};
 
 function ProjectPreview({ project, hero = false }: { project: Project; hero?: boolean }) {
-  const [imageFailed, setImageFailed] = useState(false);
-  const shot = project.url ? 'https://image.thum.io/get/width/1400/crop/920/noanimate/' + project.url : null;
   return <div className={'project-preview theme-' + project.id + (hero ? ' is-hero-preview' : '')}>
-    <div className="preview-light preview-light-one"/><div className="preview-light preview-light-two"/>
+    <div className="preview-light preview-light-one" />
+    <div className="preview-light preview-light-two" />
     <div className="preview-browser">
       <div className="browser-toolbar">
         <div className="browser-dots"><span/><span/><span/></div>
-        <div className="browser-url"><ShieldCheck size={10}/><span>{project.domain}</span></div>
+        <div className="browser-url"><span>{project.domain}</span></div>
         <div className="browser-menu"><span/><span/></div>
       </div>
       <div className="browser-content">
-        <Mockup id={project.id}/>
-        {shot && !imageFailed && <img src={shot} alt={'Website preview of ' + project.name} className="preview-screenshot"
-          loading={hero ? 'eager' : 'lazy'} onError={() => setImageFailed(true)}/>}
+        <img src={coverPaths[project.id]} alt={'Art-directed presentation of ' + project.name}
+          className="preview-screenshot" decoding="async" loading={hero ? 'eager' : 'lazy'} />
       </div>
     </div>
     {!hero && <div className="preview-corner"><ArrowUpRight size={17}/></div>}
+    <div className="preview-illustration-label">ART-DIRECTED PRESENTATION</div>
   </div>;
 }
 
@@ -204,7 +187,7 @@ function Hero() {
         </div></Reveal>
         <Reveal delay={0.44}><div className="hero-proof">
           <div><strong>5<span>+</span></strong><span>Years building<br/>for the web</span></div>
-          <div className="proof-divider"/><div><strong>03</strong><span>Featured live<br/>client websites</span></div>
+          <div className="proof-divider"/><div><strong>03</strong><span>Featured real<br/>client projects</span></div>
           <div className="proof-divider"/><div><strong>100<span>%</span></strong><span>Custom-crafted<br/>approach</span></div>
         </div></Reveal>
       </div>
@@ -231,7 +214,7 @@ function Work() {
   return <section id="work" className="section work-section">
     <div className="container">
       <SectionHeader eyebrow="01 / SELECTED WORK" title={<>Proof is in<br/><em>the projects.</em></>}
-        description="A closer look at real websites I've delivered, alongside a software showcase that reflects the kind of business problems I enjoy solving." right={<span className="section-count">2024 — 2026 / PORTFOLIO</span>}/>
+        description="A selection of real client websites and business software, plus a clearly labeled demonstration concept. Each visual is art-directed for presentation." right={<span className="section-count">2024 — 2026 / PORTFOLIO</span>}/>
       <Reveal><article className="featured-project">
         <div className="featured-copy">
           <div className="project-meta"><span className="tiny-dot"/> {projects[0].eyebrow}</div>
@@ -254,7 +237,7 @@ function Work() {
               <p className="card-headline">{project.headline}</p>
               <p className="project-description">{project.description}</p>
               <div className="project-tags">{project.services.map(x => <span key={x}>{x}</span>)}</div>
-              {project.url ? <a className="project-link" href={project.url} target="_blank" rel="noopener noreferrer">View live website <ArrowUpRight size={17}/></a> :
+              {project.url ? <a className="project-link" href={project.url} target="_blank" rel="noopener noreferrer">{project.id === 'sreya' ? 'Visit app (sign-in required)' : 'View live website'} <ArrowUpRight size={17}/></a> :
               <span className="project-note"><Monitor size={15}/> Interface concept — no public demo link</span>}
             </div>
           </article>
