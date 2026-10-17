@@ -4,7 +4,7 @@ import emailjs from '@emailjs/browser';
 import {
   ArrowUpRight, Check, CheckCircle2,
   Github, Globe2, Layers3, Linkedin, Mail, Menu, Monitor,
-  Send, X, Workflow, AlertCircle, LoaderCircle
+  Send, X, Workflow, AlertCircle, LoaderCircle, Sun, Moon
 } from 'lucide-react';
 
 type Project = {
@@ -80,6 +80,18 @@ const projects: Project[] = [
   }
 ];
 
+type ThemeMode = 'dark' | 'light';
+
+const THEME_STORAGE_KEY = 'dhruvin-portfolio-theme';
+
+function initialTheme(): ThemeMode {
+  try {
+    return window.localStorage.getItem(THEME_STORAGE_KEY) === 'light' ? 'light' : 'dark';
+  } catch {
+    return 'dark';
+  }
+}
+
 const navItems = [
   { label: 'Work', href: '#work' },
   { label: 'Expertise', href: '#expertise' },
@@ -104,7 +116,10 @@ function Mark({ small = false }: { small?: boolean }) {
   </a>;
 }
 
-function Navigation() {
+function Navigation({ theme, onToggleTheme }: {
+  theme: ThemeMode;
+  onToggleTheme: () => void;
+}) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -126,6 +141,14 @@ function Navigation() {
           {navItems.map(item => <a href={item.href} key={item.href}>{item.label}</a>)}
         </nav>
         <div className="nav-actions">
+          <button type="button"
+            className="theme-toggle" onClick={onToggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-pressed={theme === 'light'}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
+            {theme === 'dark' ? <Sun size={17} strokeWidth={1.9}/> : <Moon size={17} strokeWidth={1.9}/>}
+            <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
+          </button>
           <a className="nav-contact" href="#contact-form">Let's talk <ArrowUpRight size={15}/></a>
           <button type="button" className="mobile-toggle" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={() => setOpen(!open)}>
             {open ? <X size={22}/> : <Menu size={22}/>}
@@ -474,9 +497,24 @@ function Footer() {
 }
 
 export default function App() {
-  return <div className="site-shell">
+  const [theme, setTheme] = useState<ThemeMode>(initialTheme);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute(
+      'content', theme === 'light' ? '#eceef8' : '#090a0e'
+    );
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {
+      // Browsers that restrict local storage still support theme switching.
+    }
+  }, [theme]);
+
+  return <div className={'site-shell' + (theme === 'light' ? ' theme-light' : '')}>
     <AuroraBackground/>
-    <Navigation/>
+    <Navigation theme={theme} onToggleTheme={() => setTheme(current => current === 'dark' ? 'light' : 'dark')}/>
     <main><Hero/><Work/><Expertise/><About/><Contact/></main>
     <Footer/>
   </div>;

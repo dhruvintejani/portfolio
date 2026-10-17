@@ -4,6 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#090a0e" />
+    <script>
+      (function () {
+        try {
+          if (window.localStorage.getItem('dhruvin-portfolio-theme') === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.documentElement.style.colorScheme = 'light';
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#eceef8');
+          }
+        } catch (error) {
+          // Storage may be restricted; dark mode remains the default.
+        }
+      })();
+    </script>
     <meta name="color-scheme" content="dark" />
     <title>Dhruvin Tejani — Web Developer & Custom Software Builder</title>
     <meta name="description" content="Dhruvin Tejani is an independent developer with 5+ years of experience. Explore real client websites, custom web applications and tailored digital experiences for growing businesses." />
