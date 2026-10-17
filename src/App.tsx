@@ -368,16 +368,27 @@ function Contact() {
             _template: 'table'
           })
         });
-        const result: { success?: boolean | string; message?: string } = await response.json();
+        // The provider can respond with an HTML error page (or a blocked
+        // request) instead of JSON. Never display markup as an error message.
+        const contentType = response.headers.get('content-type')?.toLowerCase() ?? '';
+        if (!contentType.includes('application/json')) {
+          throw new Error('Unexpected non-JSON response from the contact service');
+        }
+        const payload: unknown = await response.json();
+        const result: { success?: unknown; message?: unknown } =
+          payload !== null && typeof payload === 'object'
+            ? payload as { success?: unknown; message?: unknown }
+            : {};
         const accepted = result.success === true || result.success === 'true';
         if (!response.ok || !accepted) {
-          const details = String(result.message || '');
-          if (/activat|verify|confirm/i.test(details)) {
+          // Check only the activation keywords; never render raw error text.
+          const details = typeof result.message === 'string' ? result.message : '';
+          if (/activat|verif|confirm/i.test(details)) {
             setStatus('activation');
             setFeedback('The contact form is awaiting one-time email verification by the website owner. Your message has not been delivered yet. Please try again after activation.');
             return;
           }
-          throw new Error('FormSubmit did not confirm delivery');
+          throw new Error('Contact service did not confirm submission');
         }
       }
 
@@ -386,7 +397,7 @@ function Contact() {
       setForm({ name: '', email: '', message: '' });
     } catch {
       setStatus('error');
-      setFeedback('Sorry, we could not send your enquiry right now. Your details are still here — please try again in a moment.');
+      setFeedback('Your message was not sent. Please try again in a moment, or email me directly using the address below. Your form details have been kept.');
     }
   }
 
@@ -414,6 +425,7 @@ function Contact() {
             {status !== 'idle' && status !== 'loading' && <p role={status === 'error' || status === 'activation' ? 'alert' : 'status'}
               className={'form-status ' + (status === 'success' ? 'status-good' : 'status-error')}>
               {status === 'success' ? <CheckCircle2 size={17}/> : <AlertCircle size={17}/>} {feedback}
+              {status === 'error' && <a className="contact-error-email" href={'mailto:' + EMAIL}>{EMAIL}</a>}
             </p>}
           </form>
         </div>

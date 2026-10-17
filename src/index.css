@@ -605,3 +605,25 @@ body, input, textarea, button, .brand-name, .button, .nav-contact,
  .hero-showcase-frame:hover .hero-device-web {transform:rotateY(6deg) rotateZ(-2deg);}
  .hero-showcase-frame:hover .hero-device-app {transform:rotateY(-6deg) rotateZ(2deg);}
 }
+
+/* Tighter first-screen spacing and legible contact errors */
+.hero-section { padding-top: 122px; min-height: 0; }
+.hero-content { padding-top: 0; padding-bottom: 46px; }
+.hero-kicker { margin-top: 28px; }
+.hero-proof { margin-top: 42px; }
+.hero-art { margin-top: 2px; margin-bottom: 28px; }
+.form-status { flex-wrap: wrap; }
+.contact-error-email { color: #eee5ff; text-decoration: underline; text-underline-offset: 3px; font-weight: 650; }
+.contact-error-email:hover { color: #fff; }
+@media (max-width: 900px) {
+  .hero-section { padding-top: 113px; }
+  .hero-content { padding-bottom: 8px; }
+  .hero-kicker { margin-top: 26px; }
+  .hero-proof { margin-top: 36px; }
+}
+@media (max-width: 700px) {
+  .hero-section { padding-top: 96px; }
+  .hero-content { padding-bottom: 0; }
+  .hero-kicker { margin-top: 24px; }
+  .hero-proof { margin-top: 32px; }
+}
