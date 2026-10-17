@@ -1566,3 +1566,119 @@ html[data-theme="light"] ::selection { background: #ad93f4; color: #11132b; }
    box-shadow: 8px 10px 19px #c4c5d9,-8px -8px 21px #fff;
  }
 }
+
+
+/* =============================================================
+   CUSTOM THEME BACKGROUND IMAGES • 2026-10-17
+   Four scalable assets, no external image services.
+   They decorate the existing UI without changing functionality.
+   ============================================================= */
+/* Full-page atmospheres: richer than gradients, while keeping card
+   surfaces translucent and readable in both modes. */
+.site-shell:not(.theme-light) {
+  background-image:
+    url("/backgrounds/dark-atmosphere.svg"),
+    radial-gradient(ellipse at 75% 12%,rgba(77,40,140,.30),transparent 45%),
+    linear-gradient(180deg,#0d0b1a,#100c23 45%,#0a0a19 100%);
+  background-repeat: no-repeat,no-repeat,no-repeat;
+  background-position: center top,center top,center top;
+  background-size: 100% 100%,cover,cover;
+}
+.site-shell.theme-light {
+  background-image:
+    url("/backgrounds/light-atmosphere.svg"),
+    radial-gradient(ellipse at 82% 11%,rgba(216,197,255,.46),transparent 52%),
+    linear-gradient(145deg,#f3f3fd,#ececfa 52%,#f3f1fc);
+  background-repeat:no-repeat,no-repeat,no-repeat;
+  background-position:center top,center top,center top;
+  background-size:100% 100%,cover,cover;
+}
+/* Image-based, sculptural hero environments. The two screen components
+   and their project content remain DOM elements above the art. */
+.premium-hero-scene {
+  isolation:isolate;
+  overflow:visible;
+  background:transparent;
+  border-radius:25px;
+}
+.premium-scene-artwork {
+  position:absolute;
+  z-index:-3;
+  inset:-3% -5% -6%;
+  background-image:url("/backgrounds/hero-stage-dark.svg");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:cover;
+  border-radius:35px;
+  pointer-events:none;
+  -webkit-mask-image:radial-gradient(ellipse at 52% 48%,#000 45%,rgba(0,0,0,.97) 63%,transparent 90%);
+  mask-image:radial-gradient(ellipse at 52% 48%,#000 45%,rgba(0,0,0,.97) 63%,transparent 90%);
+  filter:saturate(1.1);
+}
+.site-shell:not(.theme-light) .premium-scene-overlay {
+  z-index:-2;
+  background:
+    radial-gradient(ellipse at 52% 48%,transparent 32%,rgba(11,9,25,.22) 88%),
+    linear-gradient(180deg,rgba(12,9,26,.16),transparent 25%,transparent 76%,rgba(10,8,23,.42));
+}
+.site-shell.theme-light .premium-hero-scene {
+  background:transparent;
+  box-shadow:none;
+  border-radius:25px;
+}
+.site-shell.theme-light .premium-scene-artwork {
+  background-image:url("/backgrounds/hero-stage-light.svg");
+  filter:saturate(1.04);
+  -webkit-mask-image:radial-gradient(ellipse at 52% 49%,#000 46%,rgba(0,0,0,.94) 65%,transparent 90%);
+  mask-image:radial-gradient(ellipse at 52% 49%,#000 46%,rgba(0,0,0,.94) 65%,transparent 90%);
+}
+.site-shell.theme-light .premium-scene-overlay {
+  z-index:-2;
+  background:radial-gradient(ellipse at 53% 45%,transparent 35%,rgba(242,239,253,.05) 76%,rgba(239,236,249,.17) 100%);
+}
+/* A richer sense of integration between the page art and the individual
+   cards; card opacity remains high enough for copy accessibility. */
+.site-shell:not(.theme-light) .premium-project-card {
+  background:linear-gradient(145deg,rgba(32,24,53,.94),rgba(15,13,34,.97) 76%);
+  border-color:rgba(189,160,247,.27);
+}
+.site-shell:not(.theme-light) .premium-expertise-card {
+  background:linear-gradient(140deg,rgba(37,26,64,.91),rgba(15,13,34,.95));
+}
+.site-shell.theme-light .premium-project-card,
+.site-shell.theme-light .premium-expertise-card,
+.site-shell.theme-light .contact-form-wrap {
+  -webkit-backdrop-filter:blur(9px);
+  backdrop-filter:blur(9px);
+}
+.site-shell.theme-light .premium-project-card {background:linear-gradient(145deg,rgba(252,250,255,.97),rgba(236,234,250,.97));}
+.site-shell.theme-light .premium-expertise-card {background:linear-gradient(145deg,rgba(253,251,255,.98),rgba(236,233,249,.97));}
+.site-shell.theme-light .contact-form-wrap {background:linear-gradient(145deg,rgba(250,248,255,.98),rgba(232,229,247,.98));}
+@media(max-width:900px){
+ .premium-scene-artwork {inset:-2% -3% -3%;border-radius:30px;}
+ .site-shell:not(.theme-light) {background-size:115% 100%,cover,cover;}
+ .site-shell.theme-light {background-size:115% 100%,cover,cover;}
+}
+@media(max-width:700px){
+ .site-shell:not(.theme-light){
+   background-image:url("/backgrounds/dark-atmosphere.svg"),url("/backgrounds/dark-atmosphere.svg"),linear-gradient(#0e0b1c,#151027 48%,#0e0a20);
+   background-size:auto 2600px,auto 2600px,cover;
+   background-position:48% top,55% bottom,center;
+   background-repeat:no-repeat,no-repeat,no-repeat;
+ }
+ .site-shell.theme-light{
+   background-image:url("/backgrounds/light-atmosphere.svg"),url("/backgrounds/light-atmosphere.svg"),linear-gradient(#f4f3fd,#ebeafa 52%,#f5f3fd);
+   background-size:auto 2600px,auto 2600px,cover;
+   background-position:48% top,53% bottom,center;
+   background-repeat:no-repeat,no-repeat,no-repeat;
+ }
+ .premium-scene-artwork{
+   inset:-2% -5% -4%;
+   background-position:center;
+   border-radius:22px;
+ }
+ .site-shell.theme-light .premium-hero-scene {border-radius:22px;}
+}
+@media(prefers-reduced-motion:reduce){
+ .premium-scene-artwork {transition:none;}
+}

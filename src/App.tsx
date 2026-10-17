@@ -231,7 +231,7 @@ function Hero() {
       </div>
       <Reveal className="hero-art premium-hero-art" delay={.16}>
         <div className="premium-hero-scene">
-          <img className="premium-scene-photo" src="/hero-showcase.avif" alt="" aria-hidden="true" decoding="async" fetchPriority="high"/>
+          <div className="premium-scene-artwork" aria-hidden="true"/>
           <div className="premium-scene-overlay" aria-hidden="true"/>
           <div className="premium-visual-laptop premium-visual-web">
             <div className="premium-screen-top"><span><i/><i/><i/></span><span>averonfs.com</span></div>
