@@ -153,6 +153,39 @@ const coverPaths: Record<string, string> = {
 
 
 
+/**
+ * Decorative atmosphere only. This layer is hidden from assistive technology
+ * and cannot interfere with navigation, projects, or the contact form.
+ */
+function AuroraBackground() {
+  return <div className="aurora-backdrop" aria-hidden="true">
+    <div className="aurora-grid"/>
+    <span className="aurora-glow aurora-glow-hero"/>
+    <span className="aurora-glow aurora-glow-work"/>
+    <span className="aurora-glow aurora-glow-expertise"/>
+    <span className="aurora-glow aurora-glow-contact"/>
+    <span className="aurora-orb aurora-orb-upper"/>
+    <span className="aurora-orb aurora-orb-side"/>
+    <span className="aurora-orb aurora-orb-projects"/>
+    <span className="aurora-orb aurora-orb-lower"/>
+    <span className="aurora-orbit aurora-orbit-hero"/>
+    <span className="aurora-orbit aurora-orbit-work"/>
+    <span className="aurora-orbit aurora-orbit-bottom"/>
+    <span className="aurora-trail aurora-trail-first"/>
+    <span className="aurora-trail aurora-trail-second"/>
+    <span className="aurora-trail aurora-trail-third"/>
+    <span className="aurora-dots aurora-dots-hero"/>
+    <span className="aurora-dots aurora-dots-work"/>
+    <span className="aurora-dots aurora-dots-expertise"/>
+    <span className="aurora-dots aurora-dots-contact"/>
+    <span className="aurora-star aurora-star-one"/>
+    <span className="aurora-star aurora-star-two"/>
+    <span className="aurora-star aurora-star-three"/>
+    <span className="aurora-star aurora-star-four"/>
+    <span className="aurora-star aurora-star-five"/>
+  </div>;
+}
+
 function Hero() {
   return <section className="hero-section premium-hero" id="top">
     <div className="hero-grid" aria-hidden="true"/>
@@ -442,6 +475,7 @@ function Footer() {
 
 export default function App() {
   return <div className="site-shell">
+    <AuroraBackground/>
     <Navigation/>
     <main><Hero/><Work/><Expertise/><About/><Contact/></main>
     <Footer/>
