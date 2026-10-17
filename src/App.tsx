@@ -2,7 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import {
-  ArrowDownRight, ArrowRight, ArrowUpRight, Check, CheckCircle2,
+  ArrowUpRight, Check, CheckCircle2,
   Github, Globe2, Layers3, Linkedin, Mail, Menu, Monitor,
   Send, X, Workflow, AlertCircle, LoaderCircle
 } from 'lucide-react';
@@ -151,71 +151,47 @@ const coverPaths: Record<string, string> = {
   workflow: '/projects/manufacturing-cover.svg',
 };
 
-function ProjectPreview({ project, hero = false }: { project: Project; hero?: boolean }) {
-  return <div className={'project-preview theme-' + project.id + (hero ? ' is-hero-preview' : '')}>
-    <div className="preview-light preview-light-one" />
-    <div className="preview-light preview-light-two" />
-    <div className="preview-browser">
-      <div className="browser-toolbar">
-        <div className="browser-dots"><span/><span/><span/></div>
-        <div className="browser-url"><span>{project.domain}</span></div>
-        <div className="browser-menu"><span/><span/></div>
-      </div>
-      <div className="browser-content">
-        <img src={coverPaths[project.id]} alt={'Art-directed presentation of ' + project.name}
-          className="preview-screenshot" decoding="async" loading={hero ? 'eager' : 'lazy'} />
-      </div>
-    </div>
-    {!hero && <div className="preview-corner"><ArrowUpRight size={17}/></div>}
-    <div className="preview-illustration-label">ART-DIRECTED PRESENTATION</div>
-  </div>;
-}
+
 
 function Hero() {
-  return <section className="hero-section" id="top">
+  return <section className="hero-section premium-hero" id="top">
     <div className="hero-grid" aria-hidden="true"/>
-    <div className="hero-halo" aria-hidden="true"/>
-    <div className="container hero-layout">
-      <div className="hero-content">
-        <Reveal><div className="availability"><span className="availability-dot"/> Available for select projects <span className="availability-line"/></div></Reveal>
-        <Reveal delay={0.1}><div className="hero-kicker">INDEPENDENT DEVELOPER <span>/</span> DIGITAL CRAFTSMAN</div></Reveal>
-        <Reveal delay={0.16}><h1>Websites that<br/><span>stand out.</span><br/>Software that<br/><em>works harder.</em></h1></Reveal>
-        <Reveal delay={0.26}><p className="hero-description">I'm Dhruvin Tejani, a developer with <strong>5+ years of experience</strong> building thoughtful websites, custom web applications and digital experiences for real businesses.</p></Reveal>
-        <Reveal delay={0.35}><div className="hero-ctas">
-          <a className="button button-primary" href="#work">Explore selected work <ArrowUpRight size={18}/></a>
-          <a className="button button-text" href="#contact-form">Let's work together <ArrowRight size={18}/></a>
+    <div className="premium-ambient premium-ambient-a" aria-hidden="true"/>
+    <div className="premium-ambient premium-ambient-b" aria-hidden="true"/>
+    <div className="container hero-layout premium-hero-layout">
+      <div className="hero-content premium-hero-content">
+        <Reveal><div className="hero-kicker premium-eyebrow">INDEPENDENT DEVELOPER <span>/</span> DIGITAL CRAFTSMAN</div></Reveal>
+        <Reveal delay={.09}><h1>Websites that<br/><span>stand out.</span><br/>Software that<br/><em>works harder.</em></h1></Reveal>
+        <Reveal delay={.17}><p className="hero-description">I'm Dhruvin Tejani, a developer with <strong>5+ years of experience</strong> building thoughtful websites, custom web applications and digital experiences for real businesses.</p></Reveal>
+        <Reveal delay={.24}><div className="hero-ctas">
+          <a className="button button-primary" href="#contact-form">Let's build something <ArrowUpRight size={17}/></a>
+          <a className="button premium-button-secondary" href="#work"><span className="premium-play-icon">↗</span> View my work</a>
         </div></Reveal>
-        <Reveal delay={0.44}><div className="hero-proof">
-          <div><strong>5<span>+</span></strong><span>Years building<br/>for the web</span></div>
-          <div className="proof-divider"/><div><strong>03</strong><span>Featured real<br/>client projects</span></div>
-          <div className="proof-divider"/><div><strong>100<span>%</span></strong><span>Custom-crafted<br/>approach</span></div>
+        <Reveal delay={.32}><div className="premium-hero-proof" aria-label="Experience and approach">
+          <div><span className="premium-proof-icon"><Check size={16}/></span><span><strong>5+ years</strong><small>Development experience</small></span></div>
+          <div><span className="premium-proof-icon"><Globe2 size={16}/></span><span><strong>Real client work</strong><small>Business-first thinking</small></span></div>
+          <div><span className="premium-proof-icon"><Workflow size={16}/></span><span><strong>End-to-end</strong><small>From idea to launch</small></span></div>
         </div></Reveal>
       </div>
-      <Reveal className="hero-art" delay={0.22}>
-        <div className="hero-art-label"><span className="label-cross">✳</span> WEBSITES &amp; CUSTOM SOFTWARE <span>↗</span></div>
-        <div className="hero-feature-window hero-showcase-frame">
-          <div className="hero-scene">
-            <img className="hero-scene-image" src="/hero-showcase.avif" alt="" aria-hidden="true" decoding="async" />
-            <div className="hero-scene-wash" />
-            <div className="hero-devices">
-              <div className="hero-device hero-device-web">
-                <div className="hero-device-top"><span className="hero-device-dots"><i/><i/><i/></span><span>averonfs.com</span><ArrowUpRight size={13}/></div>
-                <img src="/projects/averon-cover.svg" alt="Illustrative logistics website composition" width={1600} height={1000} decoding="async" fetchPriority="high"/>
-                <div className="hero-device-foot"><span>CORPORATE WEBSITE</span><span>01 / 02</span></div>
-              </div>
-              <div className="hero-device hero-device-app">
-                <div className="hero-device-top"><span className="hero-device-dots"><i/><i/><i/></span><span>Business software</span><ArrowUpRight size={13}/></div>
-                <img src="/projects/sreya-cover.svg" alt="Illustrative inventory and production software dashboard" width={1600} height={1000} decoding="async" fetchPriority="high"/>
-                <div className="hero-device-foot"><span>OPERATIONS PLATFORM</span><span>02 / 02</span></div>
-              </div>
-            </div>
-            <div className="hero-scene-caption">CRAFTED FOR REAL BUSINESSES <span>✳</span></div>
+      <Reveal className="hero-art premium-hero-art" delay={.16}>
+        <div className="premium-hero-scene">
+          <img className="premium-scene-photo" src="/hero-showcase.avif" alt="" aria-hidden="true" decoding="async" fetchPriority="high"/>
+          <div className="premium-scene-overlay" aria-hidden="true"/>
+          <div className="premium-visual-laptop premium-visual-web">
+            <div className="premium-screen-top"><span><i/><i/><i/></span><span>averonfs.com</span></div>
+            <img src="/projects/averon-cover.svg" alt="Art-directed visual of AVERON Freight Solutions website" width={1600} height={1000} fetchPriority="high"/>
+            <div className="premium-device-foot"><span>GLOBAL LOGISTICS</span><ArrowUpRight size={12}/></div>
           </div>
+          <div className="premium-visual-laptop premium-visual-app">
+            <div className="premium-screen-top"><span><i/><i/><i/></span><span>Operations platform</span></div>
+            <img src="/projects/sreya-cover.svg" alt="Art-directed visual of Sreya Digital Wear inventory application" width={1600} height={1000} fetchPriority="high"/>
+            <div className="premium-device-foot"><span>BUSINESS SOFTWARE</span><ArrowUpRight size={12}/></div>
+          </div>
+          <div className="premium-scene-floor" aria-hidden="true"/>
         </div>
-        <div className="hero-art-footer"><span>VISUAL CONCEPT / ACTUAL PROJECTS BELOW</span><a href="#work">EXPLORE PROJECTS <ArrowUpRight size={14}/></a></div>
+        <div className="premium-scene-footnote">SELECTED VISUAL CONCEPTS <span>✳</span> REAL PROJECTS BELOW</div>
       </Reveal>
     </div>
-    <div className="container hero-bottom"><span>SCROLL TO DISCOVER</span><ArrowDownRight size={17}/><span>DESIGNED TO MAKE AN IMPRESSION</span></div>
   </section>;
 }
 
@@ -227,63 +203,76 @@ function SectionHeader({ eyebrow, title, description, right }: { eyebrow: string
 }
 
 function Work() {
-  return <section id="work" className="section work-section">
+  const summaries: Record<string,string> = {
+    averon: 'A corporate website for a global freight-forwarding business, designed for clarity, trust and service discovery.',
+    sreya: 'A private fashion-business application for products, cloth inventory, stock and production. Sign-in is required.',
+    gudh: 'A Hindi-first digital home for traditional knowledge, guidance and learning.',
+    workflow: 'An illustrative concept for quotations, orders, production, inventory and reporting.'
+  };
+  return <section id="work" className="section work-section premium-work">
     <div className="container">
-      <SectionHeader eyebrow="01 / SELECTED WORK" title={<>Proof is in<br/><em>the projects.</em></>}
-        description="A selection of real client websites and business software, plus a clearly labeled demonstration concept. Each visual is art-directed for presentation." right={<span className="section-count">2024 — 2026 / PORTFOLIO</span>}/>
-      <Reveal><article className="featured-project">
-        <div className="featured-copy">
-          <div className="project-meta"><span className="tiny-dot"/> {projects[0].eyebrow}</div>
-          <div className="project-number">PROJECT / {projects[0].number}</div>
-          <h3>{projects[0].name}</h3>
-          <p className="featured-headline">{projects[0].headline}</p>
-          <p className="project-description">{projects[0].description}</p>
-          <div className="project-tags">{projects[0].services.map(x => <span key={x}>{x}</span>)}</div>
-          <a className="project-link" href={projects[0].url} target="_blank" rel="noopener noreferrer">Explore live website <ArrowUpRight size={18}/></a>
-        </div>
-        <ProjectPreview project={projects[0]}/>
-      </article></Reveal>
-      <div className="projects-grid">
-        {projects.slice(1).map((project, index) => <Reveal key={project.id} delay={index * 0.1}>
-          <article className="project-card">
-            <ProjectPreview project={project}/>
-            <div className="card-details">
-              <div className="project-meta"><span className="tiny-dot"/> {project.eyebrow}</div>
-              <div className="card-title-line"><h3>{project.name}</h3><span>/{project.number}</span></div>
-              <p className="card-headline">{project.headline}</p>
-              <p className="project-description">{project.description}</p>
-              <div className="project-tags">{project.services.map(x => <span key={x}>{x}</span>)}</div>
-              {project.url ? <a className="project-link" href={project.url} target="_blank" rel="noopener noreferrer">{project.id === 'sreya' ? 'Visit app (sign-in required)' : 'View live website'} <ArrowUpRight size={17}/></a> :
-              <span className="project-note"><Monitor size={15}/> Interface concept — no public demo link</span>}
+      <Reveal><div className="premium-section-header">
+        <div><div className="premium-eyebrow premium-section-eyebrow">SELECTED WORK <span>✳</span></div>
+          <h2>Real projects. <span>Real impact.</span></h2></div>
+        <div className="premium-section-right"><p>Websites and applications crafted for businesses across different industries.</p>
+          <a className="premium-outline-button" href="#contact-form">Discuss your project <ArrowUpRight size={16}/></a></div>
+      </div></Reveal>
+      <div className="premium-project-grid">
+        {projects.map((project,i)=><Reveal key={project.id} delay={i*.06}>
+          <article className={'premium-project-card premium-card-'+project.id}>
+            <div className="premium-project-image">
+              <div className="premium-image-glow" aria-hidden="true"/>
+              <div className="premium-image-frame">
+                <div className="premium-image-browser"><span><i/><i/><i/></span><span>{project.domain}</span></div>
+                <img src={coverPaths[project.id]} alt={'Illustrative presentation of '+project.name} width={1600} height={1000} loading="lazy" decoding="async"/>
+              </div>
+            </div>
+            <div className="premium-card-content">
+              <div className="premium-project-category">{project.id==='sreya' ? 'CLIENT SOFTWARE / PRIVATE' : project.id==='workflow' ? 'SOFTWARE CONCEPT / DEMO' : project.id==='averon' ? 'WEBSITE / LOGISTICS' : 'WEBSITE / EDUCATION'}</div>
+              <h3>{project.name}</h3>
+              <p>{summaries[project.id]}</p>
+              <div className="premium-card-bottom">
+                <span>{project.client ? 'CLIENT PROJECT' : 'ILLUSTRATIVE CONCEPT'}</span>
+                {project.url ? <a href={project.url} target="_blank" rel="noopener noreferrer" className="premium-project-link"
+                  aria-label={project.id==='sreya' ? 'Open Sreya private app (sign-in required)' : 'Open '+project.name+' website'}><ArrowUpRight size={19}/></a> :
+                <span className="premium-project-link premium-project-link-inactive" aria-label="No public demo"><Monitor size={16}/></span>}
+              </div>
             </div>
           </article>
         </Reveal>)}
       </div>
-      <Reveal className="work-bottom"><p>Each project is a combination of a specific problem, considered design and clean execution.</p><a href="#contact-form">Have something similar in mind? <ArrowUpRight size={17}/></a></Reveal>
+      <Reveal><div className="premium-project-disclaimer">Project visuals are art-directed presentations. The Sreya application is private, and the manufacturing concept contains illustrative data.</div></Reveal>
     </div>
   </section>;
 }
 
 const capabilities = [
-  { number: '01', icon: Globe2, name: 'Websites that convert', description: 'Custom-designed, responsive business websites and commerce experiences that build trust and turn interest into conversations.', tags: 'CORPORATE · E-COMMERCE · LANDING PAGES' },
-  { number: '02', icon: Workflow, name: 'Software that simplifies', description: 'Purpose-built web apps for business operations — from enquiry and quotation workflows to inventory, reporting and internal portals.', tags: 'PORTALS · WORKFLOWS · AUTOMATION' },
-  { number: '03', icon: Layers3, name: 'Interfaces people enjoy', description: 'Thoughtful UI engineering that makes complex functionality feel straightforward, consistent and effortless to use.', tags: 'UI/UX · REACT · DESIGN SYSTEMS' }
+ { number:'01',icon:Globe2,name:'Websites & Web Applications',description:'Modern, fast, carefully crafted websites and web applications that help your business communicate and grow.',points:['Custom business websites','Responsive web applications','Conversion-focused interfaces','Performance-minded development'],illustration:'orbit' },
+ { number:'02',icon:Workflow,name:'Custom Software Development',description:'Purpose-built software and internal tools that reduce manual work and make everyday operations easier.',points:['Business management tools','Inventory & workflow systems','Custom client portals','APIs & integrations'],illustration:'cubes' },
+ { number:'03',icon:Layers3,name:'UI/UX & Digital Product Design',description:'Intuitive, distinctive interfaces that look considered and feel effortless across devices.',points:['Interface design','Dashboard design','Design systems','Responsive experiences'],illustration:'panels' }
 ];
-
 function Expertise() {
-  return <section className="section expertise-section" id="expertise">
+  return <section className="section expertise-section premium-expertise" id="expertise">
     <div className="container">
-      <SectionHeader eyebrow="02 / WHAT I DO" title={<>Good design.<br/><em>Even better function.</em></>}
-        description="I focus on the work that makes a difference to a business: clarity, usability, performance and room to grow."/>
-      <div className="capabilities">
-        {capabilities.map((c, i) => <Reveal key={c.name} delay={i * .1}><div className="capability">
-          <div className="capability-top"><span>{c.number} / 03</span><div className="capability-icon"><c.icon size={24} strokeWidth={1.5}/></div></div>
-          <h3>{c.name}</h3><p>{c.description}</p><div className="capability-bottom">{c.tags} <ArrowUpRight size={18}/></div>
-        </div></Reveal>)}
+      <Reveal><div className="premium-section-header">
+        <div><div className="premium-eyebrow premium-section-eyebrow">EXPERTISE <span>✳</span></div><h2>Tools for <span>ambitious businesses.</span></h2></div>
+        <div className="premium-section-right"><p>From engaging websites to practical software, I build digital products designed around real business needs.</p></div>
+      </div></Reveal>
+      <div className="premium-expertise-grid">
+        {capabilities.map((c,i)=><Reveal key={c.number} delay={i*.08}>
+          <div className={'premium-expertise-card premium-expertise-'+c.illustration}>
+            <div className="premium-capability-icon"><c.icon size={25} strokeWidth={1.65}/></div>
+            <h3>{c.name}</h3><p>{c.description}</p>
+            <ul>{c.points.map(p=><li key={p}><Check size={13}/>{p}</li>)}</ul>
+            <div className={'premium-decoration premium-decoration-'+c.illustration} aria-hidden="true">
+              {c.illustration==='orbit' ? <><div className="decoration-sphere"/><div className="sphere-ring"/></> :
+               c.illustration==='cubes' ? <><span/><span/><span/><span/></> : <><span/><span/><span/></>}
+            </div>
+          </div>
+        </Reveal>)}
       </div>
-      <Reveal><div className="stack-line">
-        <span>THE TOOLKIT</span>
-        <div>{['React', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Node.js', 'Express', 'MongoDB', 'Figma', 'Git'].map(x => <span key={x}>{x}</span>)}</div>
+      <Reveal><div className="premium-stack"><span>MY TOOLKIT</span>
+        <div>{['React','TypeScript','JavaScript','Node.js','Express','MongoDB','Tailwind CSS','Figma','Git'].map(x=><span key={x}>{x}</span>)}</div>
       </div></Reveal>
     </div>
   </section>;
@@ -405,14 +394,18 @@ function Contact() {
     <div className="container">
       <div className="contact-top"><Reveal>
         <div className="eyebrow"><span className="eyebrow-line"/>04 / LET'S MAKE SOMETHING GREAT</div>
-        <h2>Have an idea?<br/><em>Let's make it real.</em></h2>
-        <p>Need a website that earns trust or software that fixes a real problem? Tell me a little about it. I'll help you think through the next step.</p>
-        <a href="#contact-form" className="contact-email">Tell me about your project <ArrowUpRight size={21}/></a>
-        <div className="contact-availability"><span className="availability-dot"/> OPEN TO RELEVANT PROJECT OPPORTUNITIES</div>
+        <h2>Have a project<br/><em>in mind?</em></h2>
+        <p>Let's talk about the website, custom software or digital experience your business needs. Tell me what you're working on.</p>
+        <a href="#contact-form" className="contact-email">Let's discuss your idea <ArrowUpRight size={21}/></a>
+        <div className="premium-contact-perks">
+          <div><span><Check size={15}/></span><strong>Direct communication</strong><small>Work with the developer</small></div>
+          <div><span><Workflow size={15}/></span><strong>Thoughtful approach</strong><small>From concept to launch</small></div>
+          <div><span><Globe2 size={15}/></span><strong>Business-focused</strong><small>Built around your goals</small></div>
+        </div>
       </Reveal></div>
       <Reveal className="contact-form-wrap" delay={.1}>
         <div id="contact-form" className="contact-form-anchor">
-          <div className="form-heading"><span>START A CONVERSATION</span><Send size={21}/></div>
+          <div className="form-heading"><span>TELL ME ABOUT YOUR PROJECT</span><Send size={21}/></div>
           <form onSubmit={submit}>
             <input type="text" name="_honey" value={honeypot} onChange={e => setHoneypot(e.target.value)}
               className="contact-honeypot" tabIndex={-1} autoComplete="off" aria-hidden="true" />
