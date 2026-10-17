@@ -2,9 +2,9 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import {
-  ArrowDownRight, ArrowRight, ArrowUpRight, Check, CheckCircle2, Code2,
+  ArrowDownRight, ArrowRight, ArrowUpRight, Check, CheckCircle2,
   Github, Globe2, Layers3, Linkedin, Mail, Menu, Monitor,
-  Send, Sparkles, X, Workflow, AlertCircle, LoaderCircle
+  Send, X, Workflow, AlertCircle, LoaderCircle
 } from 'lucide-react';
 
 type Project = {
@@ -192,11 +192,16 @@ function Hero() {
         </div></Reveal>
       </div>
       <Reveal className="hero-art" delay={0.22}>
-        <div className="hero-art-label"><span className="label-cross">✳</span> A SELECTION OF REAL WORK <span>↗</span></div>
-        <div className="hero-feature-window"><ProjectPreview project={projects[0]} hero/></div>
-        <div className="hero-float-card hero-float-top"><span><Sparkles size={15}/></span><div><strong>Thoughtful design</strong><small>Built with purpose</small></div></div>
-        <div className="hero-float-card hero-float-bottom"><span><Code2 size={16}/></span><div><strong>Modern engineering</strong><small>Beautiful. Functional. Fast.</small></div></div>
-        <div className="hero-art-footer"><span><span className="hero-index">01</span> / SELECTED CLIENT PROJECT</span><a href={projects[0].url} target="_blank" rel="noopener noreferrer">VIEW LIVE WEBSITE <ArrowUpRight size={14}/></a></div>
+        <div className="hero-art-label"><span className="label-cross">✳</span> WEBSITES &amp; CUSTOM SOFTWARE <span>↗</span></div>
+        <div className="hero-feature-window hero-showcase-frame">
+          <picture>
+            <source srcSet="/hero-showcase.avif" type="image/avif"/>
+            <img src="/projects/averon-cover.svg"
+              alt="Conceptual showcase of a premium logistics website and an inventory-management application displayed on two laptops"
+              width={640} height={400} decoding="async" fetchPriority="high"/>
+          </picture>
+        </div>
+        <div className="hero-art-footer"><span>VISUAL CONCEPT / ACTUAL PROJECTS BELOW</span><a href="#work">EXPLORE PROJECTS <ArrowUpRight size={14}/></a></div>
       </Reveal>
     </div>
     <div className="container hero-bottom"><span>SCROLL TO DISCOVER</span><ArrowDownRight size={17}/><span>DESIGNED TO MAKE AN IMPRESSION</span></div>
