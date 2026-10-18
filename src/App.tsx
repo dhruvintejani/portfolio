@@ -167,6 +167,13 @@ function Navigation({ theme, onToggleTheme }: {
   </>;
 }
 
+const premiumCoverPaths: Record<string, string> = {
+  averon: '/projects/averon-premium.webp',
+  sreya: '/projects/sreya-premium.webp',
+  gudh: '/projects/gudh-premium.webp',
+  workflow: '/projects/manufacturing-premium.webp',
+};
+
 const coverPaths: Record<string, string> = {
   averon: '/projects/averon-cover.svg',
   sreya: '/projects/sreya-cover.svg',
@@ -278,9 +285,19 @@ function Work() {
           <article className={'premium-project-card premium-card-'+project.id}>
             <div className="premium-project-image">
               <div className="premium-image-glow" aria-hidden="true"/>
-              <div className="premium-image-frame">
-                <div className="premium-image-browser"><span><i/><i/><i/></span><span>{project.domain}</span></div>
-                <img src={coverPaths[project.id]} alt={'Illustrative presentation of '+project.name} width={1600} height={1000} loading="lazy" decoding="async"/>
+              <div className="premium-image-frame premium-image-cinematic">
+                <img
+                  src={premiumCoverPaths[project.id]}
+                  alt={'Premium illustrative showcase of '+project.name}
+                  width={1586}
+                  height={992}
+                  loading="lazy"
+                  decoding="async"
+                  onError={event => {
+                    const fallback = coverPaths[project.id];
+                    if (!event.currentTarget.src.endsWith(fallback)) event.currentTarget.src = fallback;
+                  }}
+                />
               </div>
             </div>
             <div className="premium-card-content">

@@ -1682,3 +1682,42 @@ html[data-theme="light"] ::selection { background: #ad93f4; color: #11132b; }
 @media(prefers-reduced-motion:reduce){
  .premium-scene-artwork {transition:none;}
 }
+
+/* Cinematic project artwork — real generated image compositions, no
+   extra simulated browser chrome inside the premium thumbnails. */
+.premium-project-image {
+  aspect-ratio: 1.56;
+  margin: 10px 10px 0;
+  padding: 0;
+  border-radius: 9px;
+  background: #1b1a2b;
+}
+.premium-image-frame.premium-image-cinematic {
+  height: 100%;
+  width: 100%;
+  border: 0;
+  border-radius: 9px;
+  background: #1e1b2e;
+  box-shadow: none;
+}
+.premium-image-frame.premium-image-cinematic img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+  transition: transform .55s cubic-bezier(.2,.7,.25,1);
+}
+.premium-project-card:hover .premium-image-cinematic img {
+  transform: scale(1.035);
+}
+.site-shell.theme-light .premium-project-image {
+  box-shadow: inset 3px 3px 9px #a39abc2d;
+}
+@media (max-width: 700px) {
+  .premium-project-image { aspect-ratio: 1.58; padding: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .premium-image-cinematic img { transition: none; }
+  .premium-project-card:hover .premium-image-cinematic img { transform: none; }
+}
