@@ -237,22 +237,19 @@ function Hero() {
         </div></Reveal>
       </div>
       <Reveal className="hero-art premium-hero-art" delay={.16}>
-        <div className="premium-hero-scene">
-          <div className="premium-scene-artwork" aria-hidden="true"/>
-          <div className="premium-scene-overlay" aria-hidden="true"/>
-          <div className="premium-visual-laptop premium-visual-web">
-            <div className="premium-screen-top"><span><i/><i/><i/></span><span>averonfs.com</span></div>
-            <img src="/projects/averon-cover.svg" alt="Art-directed visual of AVERON Freight Solutions website" width={1600} height={1000} fetchPriority="high"/>
-            <div className="premium-device-foot"><span>GLOBAL LOGISTICS</span><ArrowUpRight size={12}/></div>
-          </div>
-          <div className="premium-visual-laptop premium-visual-app">
-            <div className="premium-screen-top"><span><i/><i/><i/></span><span>Operations platform</span></div>
-            <img src="/projects/sreya-cover.svg" alt="Art-directed visual of Sreya Digital Wear inventory application" width={1600} height={1000} fetchPriority="high"/>
-            <div className="premium-device-foot"><span>BUSINESS SOFTWARE</span><ArrowUpRight size={12}/></div>
-          </div>
-          <div className="premium-scene-floor" aria-hidden="true"/>
+        <div className="premium-hero-scene premium-hero-scene-single">
+          <img
+            className="premium-hero-full-image"
+            src="/projects/Luxury%20Dual-Laptop%20Portfolio%20Workspace.png"
+            alt="Premium portfolio showcase featuring AVERON freight-forwarding website and Sreya Digital Wear business software on two laptops"
+            width={1586}
+            height={992}
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
         </div>
-        <div className="premium-scene-footnote">SELECTED VISUAL CONCEPTS <span>✳</span> REAL PROJECTS BELOW</div>
+        <div className="premium-scene-footnote">ART-DIRECTED PROJECT SHOWCASE <span>✳</span> SELECTED WORK BELOW</div>
       </Reveal>
     </div>
   </section>;
